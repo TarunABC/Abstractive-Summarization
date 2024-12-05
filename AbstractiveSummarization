@@ -1,0 +1,19 @@
+from transformers import pipeline
+
+def abstractive_summary(text, max_length=130, min_length=30):
+    """
+    Generates an abstractive summary of the input text using a pre-trained model.
+    
+    :param text: The input text to summarize.
+    :param max_length: Maximum length of the summary.
+    :param min_length: Minimum length of the summary.
+    :return: Abstractive summary as a string.
+    """
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    summary = summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
+    
+    return summary[0]['summary_text']
+
+# Example usage
+text = "Your long article or document goes here."
+print(abstractive_summary(text))
